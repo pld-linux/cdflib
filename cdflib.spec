@@ -8,6 +8,7 @@ Group:		Libraries
 # see http://cdf.gsfc.nasa.gov/html/sw_and_docs.html
 Source0:	http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0/linux/cdf35_0-dist-all.tar.gz
 # Source0-md5:	61dcabe51427e03f83b8a6dcf9d4dfd4
+Patch0:		%{name}-opt.patch
 URL:		http://cdf.gsfc.nasa.gov/cdf_home.html
 BuildRequires:	gcc-fortran >= 6:4.4.2
 BuildRequires:	ncurses-devel
@@ -58,13 +59,19 @@ API Javy do biblioteki CDF.
 
 %prep
 %setup -q -n cdf35_0-dist
+%patch0 -p1
+
+# note: included zlib (src/lib/zlib) is modified (at last public symbol names)
 
 %build
 %{__make} all \
 	OS=linux \
 	ENV=gnu \
 	CC_linux_gnu="%{__cc}" \
+	LD_linux_gnu="%{__cc}" \
 	LIBCDFa="../lib/libcdf.so" \
+	LIBs1="-L../lib -lcdf -lm" \
+	LIBs2="-L../lib -lcdf -lncurses -lm" \
 	UCOPTIONS="%{rpmcflags}"
 
 %install
