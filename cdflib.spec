@@ -77,9 +77,12 @@ API Javy do biblioteki CDF.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -j1 install \
 	INSTALLDIR=$RPM_BUILD_ROOT%{_prefix}
 
+# resolve conflict with dcdflib.c
+install -d $RPM_BUILD_ROOT%{_includedir}/cdf
+%{__mv} $RPM_BUILD_ROOT%{_includedir}/*.{h,inc} $RPM_BUILD_ROOT%{_includedir}/cdf
 %if "%{_lib}" != "lib"
 %{__mv} $RPM_BUILD_ROOT%{_prefix}/{lib,%{_lib}}
 %endif
@@ -106,13 +109,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/cdf.h
-%{_includedir}/cdfconfig.h
-%{_includedir}/cdfdist.h
-%{_includedir}/cdflib.h
-%{_includedir}/cdflib64.h
+%dir %{_includedir}/cdf
+# C
+%{_includedir}/cdf/cdf.h
+%{_includedir}/cdf/cdfconfig.h
+%{_includedir}/cdf/cdfdist.h
+%{_includedir}/cdf/cdflib.h
+%{_includedir}/cdf/cdflib64.h
 # fortran
-%{_includedir}/cdf.inc
+%{_includedir}/cdf/cdf.inc
 
 %files static
 %defattr(644,root,root,755)
