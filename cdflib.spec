@@ -2,7 +2,7 @@ Summary:	CDF (Common Data Format) software
 Summary(pl.UTF-8):	Oprogramowanie obsługujące CDF (Common Data Format)
 Name:		cdflib
 Version:	3.5.0.1
-Release:	1
+Release:	2
 License:	freely usable, non-commercially distributable
 Group:		Libraries
 # see http://cdf.gsfc.nasa.gov/html/sw_and_docs.html
