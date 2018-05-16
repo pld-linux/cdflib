@@ -1,0 +1,27 @@
+--- cdf36_4-dist/src/lib/Makefile.orig	2017-01-04 21:58:09.000000000 +0100
++++ cdf36_4-dist/src/lib/Makefile	2018-05-16 19:29:54.154230934 +0200
+@@ -125,8 +125,8 @@
+ libcdf.dll \
+ libcdf.sl: $(OBJs)
+ 	@if [ -f $@ ] ; then rm $@ ; else $(NULL) ; fi
+-	@echo $(LD) $(LDFLAGS) -o $@ $(OBJs) $(SYSLIBS)
+-	      $(LD) $(LDFLAGS) -o $@ $(OBJs) $(SYSLIBS)
++	@echo $(LD) $(LDFLAGS) -o $@ $(OBJs) $(SYSLIBS) -Wl,-soname,libcdf.so.3
++	      $(LD) $(LDFLAGS) -o $@ $(OBJs) $(SYSLIBS) -Wl,-soname,libcdf.so.3
+ 	@if [ $(MACVERSION) -gt 0 ]; then \
+ 	  rm -f $(MACLIB)/$@; \
+ 	  cp $@ $(MACLIB)/libcdf.$(VERSION).dylib; \
+--- cdf36_4-dist/Makefile.orig	2018-05-16 19:31:40.914229713 +0200
++++ cdf36_4-dist/Makefile	2018-05-16 19:31:55.137562887 +0200
+@@ -994,9 +994,9 @@
+ 
+ copy.lib.so:
+ 	@echo cp $(LIBsrcDIR)/libcdf.so $(INSTALLDIR)/lib
+-	      cp $(LIBsrcDIR)/libcdf.so $(INSTALLDIR)/lib/libcdf.$(VERSION).so
++	      cp $(LIBsrcDIR)/libcdf.so $(INSTALLDIR)/lib/libcdf.so.$(VERSION)
+ 	      rm -f $(INSTALLDIR)/lib/libcdf.so
+-	      cd $(INSTALLDIR)/lib && ln -s libcdf.$(VERSION).so libcdf.so
++	      cd $(INSTALLDIR)/lib && ln -s libcdf.so.$(VERSION) libcdf.so.3 && ln -s libcdf.so.$(VERSION) libcdf.so
+ 
+ copy.lib.sl:
+ 	@echo cp $(LIBsrcDIR)/libcdf.sl $(INSTALLDIR)/lib

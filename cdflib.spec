@@ -1,15 +1,16 @@
 Summary:	CDF (Common Data Format) software
 Summary(pl.UTF-8):	Oprogramowanie obsługujące CDF (Common Data Format)
 Name:		cdflib
-Version:	3.6.1
+Version:	3.6.4
 Release:	1
 License:	freely usable, non-commercially distributable
 Group:		Libraries
-# see http://cdf.gsfc.nasa.gov/html/sw_and_docs.html
-Source0:	http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf36_1/linux/cdf36_1-dist-all.tar.gz
-# Source0-md5:	9a2120adb512838742dbb344f96fdf3b
+# see https://cdf.gsfc.nasa.gov/html/sw_and_docs.html
+Source0:	https://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf36_4/linux/cdf36_4-dist-all.tar.gz
+# Source0-md5:	55baa5e6d7bc502bd13330f48c42650f
 Patch0:		%{name}-opt.patch
-URL:		http://cdf.gsfc.nasa.gov/cdf_home.html
+Patch1:		%{name}-soname.patch
+URL:		https://cdf.gsfc.nasa.gov/cdf_home.html
 BuildRequires:	gcc-fortran >= 6:4.4.2
 BuildRequires:	ncurses-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -58,8 +59,9 @@ Java API for CDF library.
 API Javy do biblioteki CDF.
 
 %prep
-%setup -q -n cdf36_1-dist
+%setup -q -n cdf36_4-dist
 %patch0 -p1
+%patch1 -p1
 
 # note: included zlib (src/lib/zlib) is modified (at last public symbol names)
 
@@ -97,18 +99,23 @@ cp -p cdfjava/classes/cdfjava.jar $RPM_BUILD_ROOT%{_javadir}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc CDF_copyright.txt CHANGES.txt README_cdf_tools.txt Release.notes Welcome.txt
 %attr(755,root,root) %{_bindir}/cdf*
 %attr(755,root,root) %{_bindir}/skeletoncdf
 %attr(755,root,root) %{_bindir}/skeletontable
-%attr(755,root,root) %{_libdir}/libcdf.so
+%attr(755,root,root) %{_libdir}/libcdf.so.%{version}
+%attr(755,root,root) %ghost %{_libdir}/libcdf.so.3
 %{_libdir}/cdf
 %{_datadir}/cdf
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libcdf.so
 %dir %{_includedir}/cdf
 # C
 %{_includedir}/cdf/cdf.h

@@ -1,15 +1,15 @@
---- cdf35_0-dist/Makefile.orig	2013-09-09 18:31:16.000000000 +0200
-+++ cdf35_0-dist/Makefile	2014-03-08 17:36:13.311830189 +0100
-@@ -781,7 +781,7 @@
- 	@cd $(TOOLSsrcDIR); $(MAKE) \
+--- cdf36_4-dist/Makefile.orig	2017-03-20 21:09:02.000000000 +0100
++++ cdf36_4-dist/Makefile	2018-05-16 19:17:48.324239219 +0200
+@@ -824,7 +824,7 @@
  "CURSES=$(AND.$(CURSES).$(CURSES_$(OS)_$(ENV)))" \
  "CCx=$(CC_$(OS)_$(ENV))" \
+ "MAKE=$(MAKE)" \
 -"COPTIONS=$(COPTIONS_$(OS)_$(ENV))" \
 +"COPTIONS=$(UCOPTIONS) $(COPTIONS_$(OS)_$(ENV))" \
  "COPTIONSld=$(COPTIONSld_$(OS)_$(ENV))" \
  "SYSLIBS=$(SYSLIBSexe_$(OS)_$(ENV))" \
  "CURSESLIB=$(CURSESLIB_$(OS)_$(ENV))" \
-@@ -793,7 +793,7 @@
+@@ -837,7 +837,7 @@
  "SHARED=$(AND.$(SHARED).$(SHARED_$(OS)))" \
  "FOPTIONS=$(FOPTIONS_$(OS)) $(FOPTIONS_$(OS)_$(ENV))" \
  "FOPTIONSld=$(FOPTIONSld_$(OS)) $(FOPTIONSld_$(OS)_$(ENV))" \
