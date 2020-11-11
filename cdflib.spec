@@ -1,13 +1,13 @@
 Summary:	CDF (Common Data Format) software
 Summary(pl.UTF-8):	Oprogramowanie obsługujące CDF (Common Data Format)
 Name:		cdflib
-Version:	3.6.4
+Version:	3.7.1
 Release:	1
 License:	freely usable, non-commercially distributable
 Group:		Libraries
 # see https://cdf.gsfc.nasa.gov/html/sw_and_docs.html
-Source0:	https://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf36_4/linux/cdf36_4-dist-all.tar.gz
-# Source0-md5:	55baa5e6d7bc502bd13330f48c42650f
+Source0:	https://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf37_1/linux/cdf37_1-dist-all.tar.gz
+# Source0-md5:	0f434ffbb7f6ffe39b2bb20c5a940aee
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-soname.patch
 URL:		https://cdf.gsfc.nasa.gov/cdf_home.html
@@ -59,7 +59,7 @@ Java API for CDF library.
 API Javy do biblioteki CDF.
 
 %prep
-%setup -q -n cdf36_4-dist
+%setup -q -n cdf37_1-dist
 %patch0 -p1
 %patch1 -p1
 
