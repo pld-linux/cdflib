@@ -10,6 +10,7 @@ Source0:	https://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf37_1/linux/cdf37_
 # Source0-md5:	0f434ffbb7f6ffe39b2bb20c5a940aee
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-soname.patch
+Patch2:		%{name}-no-common.patch
 URL:		https://cdf.gsfc.nasa.gov/cdf_home.html
 BuildRequires:	gcc-fortran >= 6:4.4.2
 BuildRequires:	ncurses-devel
@@ -62,6 +63,7 @@ API Javy do biblioteki CDF.
 %setup -q -n cdf37_1-dist
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 # note: included zlib (src/lib/zlib) is modified (at last public symbol names)
 
