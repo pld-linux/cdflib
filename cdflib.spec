@@ -61,9 +61,9 @@ API Javy do biblioteki CDF.
 
 %prep
 %setup -q -n cdf37_1-dist
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 # note: included zlib (src/lib/zlib) is modified (at last public symbol names)
 
