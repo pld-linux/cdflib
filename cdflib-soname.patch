@@ -1,6 +1,6 @@
---- cdf36_4-dist/src/lib/Makefile.orig	2017-01-04 21:58:09.000000000 +0100
-+++ cdf36_4-dist/src/lib/Makefile	2018-05-16 19:29:54.154230934 +0200
-@@ -125,8 +125,8 @@
+--- cdf39_1-dist/src/lib/Makefile.orig	2024-09-18 14:42:00.000000000 +0200
++++ cdf39_1-dist/src/lib/Makefile	2025-09-27 12:45:20.349220025 +0200
+@@ -113,8 +113,8 @@ libcdf.dylib \
  libcdf.dll \
  libcdf.sl: $(OBJs)
  	@if [ -f $@ ] ; then rm $@ ; else $(NULL) ; fi
@@ -8,9 +8,9 @@
 -	      $(LD) $(LDFLAGS) -o $@ $(OBJs) $(SYSLIBS)
 +	@echo $(LD) $(LDFLAGS) -o $@ $(OBJs) $(SYSLIBS) -Wl,-soname,libcdf.so.3
 +	      $(LD) $(LDFLAGS) -o $@ $(OBJs) $(SYSLIBS) -Wl,-soname,libcdf.so.3
- 	@if [ $(MACVERSION) -gt 0 ]; then \
- 	  rm -f $(MACLIB)/$@; \
- 	  cp $@ $(MACLIB)/libcdf.$(VERSION).dylib; \
+ 
+ libcdf.o: $(OBJs)
+ 	@echo $(CC) $(LDFLAGS) -o $@ $(OBJs) $(SYSLIBS)
 --- cdf36_4-dist/Makefile.orig	2018-05-16 19:31:40.914229713 +0200
 +++ cdf36_4-dist/Makefile	2018-05-16 19:31:55.137562887 +0200
 @@ -994,9 +994,9 @@

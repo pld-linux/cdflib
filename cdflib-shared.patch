@@ -1,0 +1,12 @@
+--- cdf39_1-dist/src/tools/Makefile.orig	2024-09-25 17:55:33.000000000 +0200
++++ cdf39_1-dist/src/tools/Makefile	2025-09-27 19:06:07.805444730 +0200
+@@ -62,8 +62,7 @@ else
+     ifeq ("$(WHICHOS)","Msys")
+       LIBCDFa=../lib/libcdf.dll
+     else
+-#     All others use static library
+-      LIBCDFa=../lib/libcdf.a
++      LIBCDFa=../lib/libcdf.so
+     endif
+   endif
+ endif

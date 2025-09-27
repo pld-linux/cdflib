@@ -1,16 +1,16 @@
 Summary:	CDF (Common Data Format) software
 Summary(pl.UTF-8):	Oprogramowanie obsługujące CDF (Common Data Format)
 Name:		cdflib
-Version:	3.7.1
+Version:	3.9.1
 Release:	1
 License:	freely usable, non-commercially distributable
 Group:		Libraries
 # see https://cdf.gsfc.nasa.gov/html/sw_and_docs.html
-Source0:	https://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf37_1/linux/cdf37_1-dist-all.tar.gz
-# Source0-md5:	0f434ffbb7f6ffe39b2bb20c5a940aee
+Source0:	https://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf39_1/linux/cdf39_1-dist-all.tar.gz
+# Source0-md5:	353c9868e510ccc989bca457bc20e49b
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-soname.patch
-Patch2:		%{name}-no-common.patch
+Patch2:		%{name}-shared.patch
 URL:		https://cdf.gsfc.nasa.gov/cdf_home.html
 BuildRequires:	gcc-fortran >= 6:4.4.2
 BuildRequires:	ncurses-devel
@@ -60,12 +60,15 @@ Java API for CDF library.
 API Javy do biblioteki CDF.
 
 %prep
-%setup -q -n cdf37_1-dist
+%setup -q -n cdf39_1-dist
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
 
 # note: included zlib (src/lib/zlib) is modified (at last public symbol names)
+
+# don't override -Ox passed in rpmcflags
+%{__sed} -i -e 's/ -O3//' Makefile
 
 %build
 %{__make} all \
@@ -73,9 +76,6 @@ API Javy do biblioteki CDF.
 	ENV=gnu \
 	CC_linux_gnu="%{__cc}" \
 	LD_linux_gnu="%{__cc}" \
-	LIBCDFa="../lib/libcdf.so" \
-	LIBs1="-L../lib -lcdf -lm" \
-	LIBs2="-L../lib -lcdf -lncurses -lm" \
 	UCOPTIONS="%{rpmcflags}"
 
 %install
@@ -111,13 +111,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/skeletoncdf
 %attr(755,root,root) %{_bindir}/skeletontable
 %attr(755,root,root) %{_libdir}/libcdf.so.%{version}
-%attr(755,root,root) %ghost %{_libdir}/libcdf.so.3
+%ghost %{_libdir}/libcdf.so.3
 %{_libdir}/cdf
 %{_datadir}/cdf
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcdf.so
+%{_libdir}/libcdf.so
 %dir %{_includedir}/cdf
 # C
 %{_includedir}/cdf/cdf.h
@@ -125,6 +125,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/cdf/cdfdist.h
 %{_includedir}/cdf/cdflib.h
 %{_includedir}/cdf/cdflib64.h
+%{_includedir}/cdf/cdftools.h
 # fortran
 %{_includedir}/cdf/cdf.inc
 
